@@ -21,6 +21,8 @@ jobs:
 
     - name: Compile Haskell Program
       run: |
+        cabal update
+        cabal install http-conduit
         ghc -o Sleep Sleep.hs
 
     - name: Upload Executable
