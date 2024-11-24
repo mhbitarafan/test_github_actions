@@ -1,0 +1,30 @@
+name: Compile Haskell Program
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install GHC and Cabal
+      uses: actions/setup-haskell@v2
+      with:
+        haskell-version: 'latest'
+
+    - name: Compile Haskell Program
+      run: |
+        ghc -o Sleep Sleep.hs
+
+    - name: Upload Executable
+      uses: actions/upload-artifact@v3
+      with:
+        name: Sleep-executable
+        path: ./Sleep
